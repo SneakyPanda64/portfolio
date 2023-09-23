@@ -1,10 +1,17 @@
 <script>
 	// @ts-nocheck
 	import { showStats } from './stores/stats';
+	import { wsConnection } from './stores/ws';
+	import { clicks } from '../routes/stores/clicks';
+
 	import LinkComponent from './link.svelte';
 	import Experience from './experience.svelte';
 	import Clickme from './clickme.svelte';
 	import Map from './map.svelte';
+	import { onMount } from 'svelte';
+	import { heatmap } from './stores/heatmap';
+	// import { env } from '$lib/env';
+	// const secret = env.YOUR_SECRET;
 	// @ts-ignore
 	function followMouse(event) {
 		let elem = document.querySelector('#cursor');
@@ -20,6 +27,37 @@
 			elem.style.setProperty('top', y + 'px');
 		}
 	}
+	onMount(async () => {
+		function connect() {
+			const ws = new WebSocket('ws://localhost:3000/ws/123?v=1.0');
+			ws.addEventListener('open', () => {
+				console.log('connected');
+				$wsConnection = ws;
+			});
+			ws.addEventListener('message', (message) => {
+				// Parse the incoming message here
+				if (message.data !== '') {
+					const data = JSON.parse(message.data);
+					console.log('recieved', data);
+					if (data.type === 'clicks') {
+						$clicks = data.value;
+					} else if (data.type === 'stats') {
+						$heatmap = JSON.parse(data.value);
+						console.log($heatmap);
+					}
+				} else {
+					console.log('recieved', message);
+				}
+			});
+			ws.addEventListener('close', () => {
+				console.log('closed connection');
+				setTimeout(function () {
+					connect();
+				}, 1000);
+			});
+		}
+		connect();
+	});
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
@@ -55,7 +93,7 @@
 					<Map />
 				{:else}
 					<div>
-						<p class="text-xl font-normal">
+						<p class="text-lg font-normal">
 							Commodo voluptate irure magna laboris sint nulla. Do enim duis ea dolor est. Lorem
 							dolore excepteur dolor <b>qui</b> ut officia aliqua commodo ipsum. Amet commodo
 							nostrud in excepteur <b>qui</b>
@@ -68,10 +106,6 @@
 							ipsum ali<b>qui</b>p mollit
 							<b>non</b>
 							id adipisicing sunt ad irure irure sit. <b>non</b> sint consectetur ex mollit elit sint.
-							Veniam consequat nostrud officia nostrud reprehenderit ipsum nisi proident aute nisi Lorem.
-							Pariatur nulla adipisicing id laboris nisi ullamco magna excepteur mollit ex deserunt consequat
-							labore eu. Voluptate magna eu veniam ex nulla excepteur enim sit. Anim elit commodo reprehenderit
-							aliqua id veniam elit pariatur minim fugiat.
 						</p>
 					</div>
 					<div>

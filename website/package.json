@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"dev": "vite dev",
+		"dev": "vite dev --host",
 		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
@@ -15,6 +15,7 @@
 		"format": "prettier --plugin-search-dir . --write ."
 	},
 	"devDependencies": {
+		"@iconify/svelte": "^3.1.4",
 		"@playwright/test": "^1.28.1",
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.20.4",
@@ -34,6 +35,7 @@
 	"dependencies": {
 		"@fontsource/roboto": "^5.0.8",
 		"d3": "^7.8.5",
+		"dotenv": "^16.3.1",
 		"svelte-icons": "^2.1.0",
 		"svelte-particles": "^2.12.0",
 		"topojson-client": "^3.1.0"

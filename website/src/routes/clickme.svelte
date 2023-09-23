@@ -1,12 +1,25 @@
 <script>
+	// @ts-nocheck
+
 	import { showStats } from './stores/stats';
-	let clicks = 0;
+	import { wsConnection } from './stores/ws';
+	import { clicks } from './stores/clicks';
+	// let clicks = 0;
 	let clicked = false;
 
 	const clickEvent = () => {
-		if (clicked) return;
-		clicks += 1;
+		// if (clicked) return;
+		// clicks += 1;
 		clicked = true;
+		if ($wsConnection !== undefined) {
+			// @ts-ignore
+			$wsConnection.send(
+				JSON.stringify({
+					action: 'click',
+					value: ''
+				})
+			);
+		}
 	};
 	const showStatsHandler = () => {
 		console.log('changing show stats var');
@@ -21,7 +34,7 @@
 			class={'bg-s-blue flex-grow-0 py-3 px-6 rounded-xl bg-opacity-30 text-s-blue text-xl font-semibold transition-all duration-300 hover:bg-opacity-40 hover:text-white'}
 		>
 			{#if clicked}
-				I have been clicked {clicks} times!
+				I have been clicked {$clicks} times!
 			{:else}
 				Click Me!
 			{/if}

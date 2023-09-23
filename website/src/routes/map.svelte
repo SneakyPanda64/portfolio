@@ -12,7 +12,8 @@
 	import { geoPath, geoEqualEarth } from 'd3-geo';
 	import { draw } from 'svelte/transition';
 	import { countries, temperatures } from './example.json';
-
+	import { wsConnection } from './stores/ws';
+	import { heatmap } from './stores/heatmap';
 	let loading_map = false;
 
 	const projection = geoEqualEarth();
@@ -32,24 +33,39 @@
 		);
 		country_features = topojson.feature(globe, globe.objects.countries).features;
 		loading_map = true;
+		$wsConnection.send(
+			JSON.stringify({
+				action: 'stats',
+				value: ''
+			})
+		);
 	});
 </script>
 
-{#if loading_map}
-	<div class="border-white shadow-2xl">
-		<svg viewBox="400 40 250 150">
-			{#each country_features as feature, i}
-				<!-- {#if countries[feature.id] > 0} -->
-				<g fill={countries[feature.id] ?? 'white'}>
-					<path
-						d={path(feature)}
-						on:click={() => (selected = feature)}
-						class="state"
-						in:draw={{ delay: i * 50, duration: 1000 }}
-					/>
-				</g>
-			{/each}
-		</svg>
+{#if loading_map && Object.keys($heatmap).length > 0}
+	<div>
+		<div class="border-white shadow-2xl">
+			<svg viewBox="400 20 250 150">
+				{#each country_features as feature, i}
+					<!-- {@const hash =(feature.id))} -->
+					<g fill={$heatmap[parseInt(feature.id)] ?? 'white'}>
+						<path
+							d={path(feature)}
+							on:click={() => (selected = feature)}
+							class="country"
+							in:draw={{ delay: i * 50, duration: 1000 }}
+						/>
+					</g>
+				{/each}
+			</svg>
+			<div class="flex py-4 pl-2">
+				<!-- <h1 class="pr-2 font-semibold text-white">Least</h1> -->
+				{#each ['#ffffff', '#fffdc4', '#fffb80', '#ffe14a', '#ffcc4a', '#ffbd4a', '#ffa44a', '#ff8c4a', '#ff6e4a', '#ff564a'] as colour}
+					<div class={`h-4 my-auto w-4 mr-1`} style={`background-color: ${colour};`} />
+				{/each}
+				<!-- <h1 class="pr-2 font-semibold text-white">Most</h1> -->
+			</div>
+		</div>
 	</div>
 {:else}
 	<button type="button" class="flex mx-auto pt-32" disabled>
@@ -76,8 +92,8 @@
 <div class="selectedName">{selected?.properties.name ?? ''}</div>
 
 <style>
-	.state:hover {
-		fill: hsl(0 0% 50% / 20%);
+	.country:hover {
+		fill-opacity: 95%;
 	}
 
 	.selectedName {
