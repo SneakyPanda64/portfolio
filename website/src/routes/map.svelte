@@ -44,7 +44,7 @@
 
 {#if loading_map && Object.keys($heatmap).length > 0}
 	<div>
-		<div class="border-white shadow-2xl">
+		<div class="border-white shadow-2xl rounded-xl">
 			<svg viewBox="400 20 250 150">
 				{#each country_features as feature, i}
 					<!-- {@const hash =(feature.id))} -->
@@ -89,7 +89,7 @@
 		<h1 class="pl-2">Processing Map Data</h1>
 	</button>{/if}
 
-<div class="selectedName">{selected?.properties.name ?? ''}</div>
+<!-- <div class="selectedName">{selected?.properties.name ?? ''}</div> -->
 
 <style>
 	.country:hover {

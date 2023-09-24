@@ -49,7 +49,9 @@ func GetHeatmap() (map[int64]string, error) {
 			"#ff8c4a",
 			"#ff6e4a",
 			"#ff564a",
+			"#ff564a",
 		}
+		logrus.Print(al)
 		m49 := int64(countries.ByName(country))
 		hexas[m49] = fmt.Sprintf(colours[al/10])
 	}

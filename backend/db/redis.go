@@ -18,7 +18,7 @@ func Connect() {
 		Password: "", // no password set
 		DB:       0,  // use default DB
 	})
-	_, err := client.Set(context.Background(), "foo", "bar", 0).Result()
+	_, err := client.Set(context.Background(), "foo", "bar", 1).Result()
 	if err != nil {
 		logrus.Error(err)
 		return

@@ -8,21 +8,21 @@
 	import DiJavascript from 'svelte-icons/di/DiJavascript.svelte';
 	import DiReact from 'svelte-icons/di/DiReact.svelte';
 	import Icon from './icon.svelte';
-	let role = 'Web Developer';
-	let company = {
+	export let role = 'Web Developer';
+	export let company = {
 		title: 'Talon Outdoors',
 		website: 'https://google.com'
 	};
-	let duration = '2018 — PRESENT';
-	let level = 'Internship';
-	let about =
+	export let duration = '2018 — PRESENT';
+	export let level = 'Internship';
+	export let about =
 		'Deliver high-quality, robust production code for a diverse array of projects for clients including Harvard Business School, Everytown for Gun Safety, Pratt Institute, Koala Health, Vanderbilt University, The 19th News, and more. Provide leadership within engineering department through close collaboration, knowledge shares, and mentorship.';
-	let skills = ['Next.js', 'Jest', 'Sass', 'Javascript', 'Typescript'];
+	export let skills = ['Next.js', 'Jest', 'Sass', 'Javascript', 'Typescript'];
 </script>
 
 <div class="pt-16">
 	<card>
-		<a href="https://google.com" class="">
+		<a href={company.website} target="_blank" class="">
 			<div
 				class=" transition-all group relative duration-300 ease-in-out from-s-blue rounded-xl p-6 to-indigo-600 hover:shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)] hover:shadow-s-blue/60"
 			>
@@ -36,7 +36,7 @@
 					>
 						<FaLocationArrow />
 					</div>
-					<h1 class="text-2xl font-bold text-white">{role} - {company.title}</h1>
+					<h1 class="text-2xl font-bold text-white">{role} • {company.title}</h1>
 					<h2 class="text-xl font-semibold">{level}</h2>
 					<p class="">
 						{about}
