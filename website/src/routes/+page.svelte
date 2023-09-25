@@ -14,23 +14,62 @@
 	import { onMount } from 'svelte';
 	import Bubbles from './bubbles.svelte';
 	import { heatmap } from './stores/heatmap';
+	import { selected } from './stores/selected';
 	import Connections from './connections.svelte';
 	import Projects from './projects.svelte';
 	import HyperionImage from '$lib/assets/hyperion.png';
 	import ErosImage from '$lib/assets/erosai.png';
 	let loading = undefined;
 	import { PUBLIC_DISABLE_LOADING_ANIMATION } from '$env/static/public';
+	let scrollTop = 0;
+	let docHeight = 0;
+	let height = 0;
 	function followMouse(event) {
-		console.log('Follow');
 		let elem = document.querySelector('#cursor');
 		if (elem !== null) {
-			let y = event.pageY - elem.offsetHeight / 2;
-			let x = event.pageX - elem.offsetWidth / 2;
-			elem.style.setProperty('position', 'absolute');
+			let y = event.clientY - elem.offsetHeight / 2;
+			let x = event.clientX - elem.offsetWidth / 2;
 			elem.style.setProperty('left', x + 'px');
 			elem.style.setProperty('top', y + 'px');
 		}
 	}
+	const onScroll = (e) => {
+		// let el = document.querySelector('#main');
+		// console.log(innerHeight, elem.offsetHeight);
+		// const scrollbarWidth = elem.offsetHeight - elem.clientHeight;
+		var scrollTop = document.documentElement.scrollTop;
+		var docHeight = Math.max(
+			document.body.scrollHeight,
+			document.body.offsetHeight,
+			document.documentElement.clientHeight,
+			document.documentElement.scrollHeight,
+			document.documentElement.offsetHeight
+		);
+		var winHeight = window.innerHeight; // || document.documentElement.clientHeight || document.body.clientHeight;
+		var scrollPercent = scrollTop / (docHeight - winHeight);
+		var scrollPercentRounded = Math.round(scrollPercent * 100);
+		console.log(scrollPercentRounded);
+		// let percent = windowY / (windowHeight * 2);
+		// console.log(percent);
+		if (scrollPercentRounded > 0.8) {
+			$selected = 'experiences';
+		} else if (scrollPercentRounded > 0.4) {
+			$selected = 'projects';
+		} else {
+			$selected = 'about';
+		}
+		// if (scrollPercentRounded <= 0.2) {
+		// 	console.log('experiences');
+		// 	$selected = 'experiences';
+		// } else if (scrollPercentRounded <= 0.5) {
+		// 	console.log('projects');
+		// 	$selected = 'projects';
+		// } else if (scrollPercentRounded >= 0.2) {
+		// 	console.log('about');
+		// 	$selected = 'about';
+		// }
+	};
+
 	onMount(async () => {
 		if (PUBLIC_DISABLE_LOADING_ANIMATION !== 'true') {
 			loading = true;
@@ -74,6 +113,8 @@
 	});
 </script>
 
+<!-- <svelte:window bind:scro/> -->
+
 {#if loading === undefined || loading}
 	{#if loading}
 		<div class="m-auto items-center flex h-screen min-h-full w-screen mx-auto relative">
@@ -104,16 +145,24 @@
 		</div>
 	{/if}
 {:else}
+	<div
+		id="cursor"
+		class="bg-gradient-to-r fixed from-s-purple to-s-blue w-32 h-32 bg-blend-multiply blur-3xl opacity-60 -z-50"
+	/>
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
-	<div id="main" class="relative" on:mousemove={followMouse}>
+	<div
+		id="main"
+		class="relative"
+		on:mousemove={followMouse}
+		on:wheel={setTimeout(() => {
+			onScroll(e);
+		}, 100)}
+	>
 		<Bubbles left="5%" top="5%" />
 		<Bubbles left="93%" top="85%" />
 		<div class="blur-3xl -top-5 -left-5 w-32 h-32 fixed bg-s-purple" />
-		<div
-			id="cursor"
-			class="bg-gradient-to-r from-s-purple to-s-blue w-32 h-32 absolute bg-blend-multiply blur-3xl opacity-60 -z-50"
-		/>
-		<div class="min-h-screen w-screen pt-24 px-32 text-s-light-gray" on:wheel={followMouse}>
+
+		<div class="min-h-screen w-screen pt-24 px-32 text-s-light-gray">
 			<div class="grid grid-cols-2 gap-x-12">
 				<div class="fixed w-1/2">
 					<div class="">
@@ -125,9 +174,9 @@
 						</h3>
 					</div>
 					<div class="pt-16 w-1/2">
-						<LinkComponent linkName="about" />
-						<LinkComponent linkName="experiences" />
-						<LinkComponent linkName="projects" />
+						<LinkComponent linkName="about" location="0%" />
+						<LinkComponent linkName="projects" location="50%" />
+						<LinkComponent linkName="experiences" location="100%" />
 					</div>
 					<div class="pt-16">
 						<Clickme />
