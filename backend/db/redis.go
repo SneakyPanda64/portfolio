@@ -23,7 +23,7 @@ func Connect() error {
 	if err != nil {
 		return err
 	}
-	err = client.Set(context.Background(), "test", "test2", 0).Err()
+	err = client.Get(context.Background(), "test").Err()
 	if err != nil {
 		return err
 	}
