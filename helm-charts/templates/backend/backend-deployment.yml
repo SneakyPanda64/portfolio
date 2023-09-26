@@ -23,7 +23,7 @@ spec:
             - containerPort: 3000
           env:
             - name: "REDIS_URI"
-              value: redis-portfolio-prom.redis.svc.cluster.local:8070
+              value: redis://demo:eyFwNXOa@redis-portfolio-prom.redis.svc.cluster.local:8070
           imagePullPolicy: Always
       imagePullSecrets:
         - name: regcred-portfolio
