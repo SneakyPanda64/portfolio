@@ -19,7 +19,7 @@
 	import Projects from './projects.svelte';
 	import HyperionImage from '$lib/assets/hyperion.png';
 	import ErosImage from '$lib/assets/erosai.png';
-	import { PUBLIC_WS_ENDPOINT } from '$env/dynamic/public';
+	import { PUBLIC_WS_ENDPOINT } from '$env/static/public';
 	let loading = undefined;
 	function followMouse(event) {
 		let elem = document.querySelector('#cursor');
