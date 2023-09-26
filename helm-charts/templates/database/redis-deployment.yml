@@ -4,7 +4,7 @@ metadata:
   name: redis-portfolio
   namespace: redis
 spec:
-  nodes: 1
+  nodes: 3
   redisEnterpriseNodeResources:
     limits:
       cpu: 500m
