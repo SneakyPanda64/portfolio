@@ -24,5 +24,6 @@ spec:
           env:
             - name: PUBLIC_WS_ENDPOINT
               value: {{.Values.endpoints.ws}}
+          imagePullPolicy: Always
       imagePullSecrets:
         - name: regcred-portfolio
