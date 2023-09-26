@@ -5,3 +5,10 @@ metadata:
   namespace: {{.Values.namespace}}
 spec:
   nodes: 1
+  redisEnterpriseNodeResources:
+    limits:
+      cpu: 500m
+      memory: 2Gi
+    requests:
+      cpu: 250m
+      memory: 1Gi
