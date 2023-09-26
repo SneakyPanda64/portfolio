@@ -34,6 +34,5 @@ deploy:
   script:
     - kubectl config get-contexts
     - kubectl config use-context alex/portfolio:portfolio
-    # - kubectl config use-context alex/portfolio portfolio=${CI_REGISTRY_IMAGE}:backend -n portfolio
     - kubectl rollout restart deployment/website -n eros-prod
     - kubectl rollout restart deployment/backend -n eros-prod
