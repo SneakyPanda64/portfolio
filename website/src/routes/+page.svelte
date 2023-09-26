@@ -21,9 +21,6 @@
 	import ErosImage from '$lib/assets/erosai.png';
 	let loading = undefined;
 	import { PUBLIC_DISABLE_LOADING_ANIMATION } from '$env/static/public';
-	let scrollTop = 0;
-	let docHeight = 0;
-	let height = 0;
 	function followMouse(event) {
 		let elem = document.querySelector('#cursor');
 		if (elem !== null) {
@@ -33,42 +30,6 @@
 			elem.style.setProperty('top', y + 'px');
 		}
 	}
-	const onScroll = (e) => {
-		// let el = document.querySelector('#main');
-		// console.log(innerHeight, elem.offsetHeight);
-		// const scrollbarWidth = elem.offsetHeight - elem.clientHeight;
-		var scrollTop = document.documentElement.scrollTop;
-		var docHeight = Math.max(
-			document.body.scrollHeight,
-			document.body.offsetHeight,
-			document.documentElement.clientHeight,
-			document.documentElement.scrollHeight,
-			document.documentElement.offsetHeight
-		);
-		var winHeight = window.innerHeight; // || document.documentElement.clientHeight || document.body.clientHeight;
-		var scrollPercent = scrollTop / (docHeight - winHeight);
-		var scrollPercentRounded = Math.round(scrollPercent * 100);
-		console.log(scrollPercentRounded);
-		// let percent = windowY / (windowHeight * 2);
-		// console.log(percent);
-		if (scrollPercentRounded > 0.8) {
-			$selected = 'experiences';
-		} else if (scrollPercentRounded > 0.4) {
-			$selected = 'projects';
-		} else {
-			$selected = 'about';
-		}
-		// if (scrollPercentRounded <= 0.2) {
-		// 	console.log('experiences');
-		// 	$selected = 'experiences';
-		// } else if (scrollPercentRounded <= 0.5) {
-		// 	console.log('projects');
-		// 	$selected = 'projects';
-		// } else if (scrollPercentRounded >= 0.2) {
-		// 	console.log('about');
-		// 	$selected = 'about';
-		// }
-	};
 
 	onMount(async () => {
 		if (PUBLIC_DISABLE_LOADING_ANIMATION !== 'true') {
@@ -113,7 +74,15 @@
 	});
 </script>
 
-<!-- <svelte:window bind:scro/> -->
+<svelte:head>
+	<title>Alexander Heather</title>
+	<meta charset="utf-8" />
+	<meta name="author" content="Alexander Heather" />
+	<meta
+		name="description"
+		content="My personal portfolio for showing off my projects and experiences. And also demonstrating my web development skills"
+	/>
+</svelte:head>
 
 {#if loading === undefined || loading}
 	{#if loading}
@@ -150,14 +119,7 @@
 		class="bg-gradient-to-r fixed from-s-purple to-s-blue w-32 h-32 bg-blend-multiply blur-3xl opacity-60 -z-50"
 	/>
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
-	<div
-		id="main"
-		class="relative"
-		on:mousemove={followMouse}
-		on:wheel={setTimeout(() => {
-			onScroll(e);
-		}, 100)}
-	>
+	<div id="main" class="relative" on:mousemove={followMouse} on:wheel={onScroll}>
 		<Bubbles left="5%" top="5%" />
 		<Bubbles left="93%" top="85%" />
 		<div class="blur-3xl -top-5 -left-5 w-32 h-32 fixed bg-s-purple" />
@@ -173,11 +135,11 @@
 							visual elements
 						</h3>
 					</div>
-					<div class="pt-16 w-1/2">
+					<!-- <div class="pt-16 w-1/2">
 						<LinkComponent linkName="about" location="0%" />
 						<LinkComponent linkName="projects" location="50%" />
 						<LinkComponent linkName="experiences" location="100%" />
-					</div>
+					</div> -->
 					<div class="pt-16">
 						<Clickme />
 					</div>
@@ -194,7 +156,7 @@
 					</div>
 				</div>
 				<div />
-				<div class="z-10">
+				<div class="z-10" id="scrollable">
 					<!-- <Map /> -->
 					{#if $showStats}
 						<Map />
@@ -301,7 +263,7 @@
 									role="Fontend Developer"
 									company={{ title: 'Talon Outdoor', website: 'https://talonooh.com/en/' }}
 									level="Internship"
-									about="I worked in a work environment with other web developers where I worked on a NextJS web app. I contributed a few features and many bug fixes during my time at Talon and learned a lot from some very great people."
+									about="I had the opportunity to work in a professional setting alongside other web developers, where my main focus was on developing a NextJS web application. During my time at Talon, I was able to contribute several new features and resolve numerous bugs. Working alongside a highly skilled team of individuals, I had the privilege of learning from their expertise and gaining valuable insights."
 									skills={['Next.js', 'Jest', 'Sass', 'Javascript', 'Typescript']}
 								/>
 							</div>
