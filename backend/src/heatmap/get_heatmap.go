@@ -7,7 +7,6 @@ import (
 	"strconv"
 
 	"github.com/biter777/countries"
-	"github.com/sirupsen/logrus"
 	"github.com/sneakypanda64/portfolio/db"
 )
 
@@ -16,7 +15,6 @@ func GetHeatmap() (map[int64]string, error) {
 	if err != nil {
 		return map[int64]string{}, err
 	}
-	logrus.Print(result)
 	total_count := 0
 	for _, count := range result {
 		i, err := strconv.Atoi(count)
@@ -51,7 +49,6 @@ func GetHeatmap() (map[int64]string, error) {
 			"#ff564a",
 			"#ff564a",
 		}
-		logrus.Print(al)
 		m49 := int64(countries.ByName(country))
 		hexas[m49] = fmt.Sprintf(colours[al/10])
 	}
