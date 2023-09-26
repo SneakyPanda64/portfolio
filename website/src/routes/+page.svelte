@@ -21,6 +21,7 @@
 	import ErosImage from '$lib/assets/erosai.png';
 	import { env } from '$env/dynamic/public';
 	let loading = undefined;
+	let more = false;
 	function followMouse(event) {
 		let elem = document.querySelector('#cursor');
 		if (elem !== null) {
@@ -116,7 +117,7 @@
 {:else}
 	<div
 		id="cursor"
-		class="bg-gradient-to-r fixed from-s-purple to-s-blue w-32 h-32 bg-blend-multiply blur-3xl opacity-60 -z-50"
+		class="bg-gradient-to-r fixed from-s-purple to-s-blue w-32 h-32 bg-blend-multiply blur-3xl opacity-60 -z-50 hidden md:block"
 	/>
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div id="main" class="relative" on:mousemove={followMouse}>
@@ -128,9 +129,11 @@
 			<div class="md:grid md:grid-cols-2 gap-x-12">
 				<div class="md:fixed md:w-1/2 pb-8 md:pb-0">
 					<div class="">
-						<h1 class="text-5xl text-white font-bold">ALEXANDER HEATHER</h1>
-						<h2 class="text-3xl text-white font-medium text-opacity-90 pb-6 pt-2">WEB DEVELOPER</h2>
-						<h3 class="text-2xl font-medium md:w-2/3">
+						<h1 class="text-5xl lg:text-7xl text-white font-bold">ALEXANDER HEATHER</h1>
+						<h2 class="text-3xl lg:text-5xl text-white font-medium text-opacity-90 pb-6 pt-2">
+							WEB DEVELOPER
+						</h2>
+						<h3 class="text-2xl lg:text-4xl font-medium md:w-2/3">
 							I excel in crafting high-performance websites that seamlessly integrate stunning
 							visual elements
 						</h3>
@@ -143,7 +146,7 @@
 					<div class="pt-8 md:pt-16">
 						<Clickme />
 					</div>
-					<div class="flex gap-x-4 pt-12">
+					<div class="flex justify-between md:justify-start md:gap-x-4 lg:gap-x-8 pt-12">
 						<Connections icon={FaGithub} href={'https://github.com/SneakyPanda64'} />
 						<Connections
 							icon={FaLinkedinIn}
@@ -161,8 +164,9 @@
 					{#if $showStats}
 						<Map />
 					{:else}
-						<div>
-							<p class="text-xl md:text-sm font-normal pb-6">
+						<div class="pb-6 md:pb-0">
+							<h1 class="opacity-0" id="about">About</h1>
+							<p class="text-xl md:text-sm lg:text-lg font-normal pb-6">
 								In <b>2020</b>, I embarked on a journey to become a web developer, beginning my
 								journey with creating sites utilising <b>pug.js</b>. This was an enlightening first
 								step and led to my exploration of different programming languages and frameworks
@@ -172,19 +176,36 @@
 								<b>2022</b> came around, I had grown more confident about programming skills and
 								expanded my knowledge base to include <b>golang</b> and <b>dart</b>. Additionally,
 								concepts such as
-								<!-- <b>kubernetes</b> and <b>devops</b> also found a place in my field of expertise.<br
-								/><br />May of
-								<b>2023</b> marked a significant milestone in my coding career as I launched my
-								first production application. This application was programmed in <b>Dart</b> using
-								the <b>Flutter</b>
-								framework, and its backend was supported by a fusion of <b>golang</b> and
-								<b>python</b>
-								arranged in a microservices architecture.<br /><br />I further ventured into
-								sophisticated concepts such as <b>gRPC</b> for enhanced communication between services.
-								This quest for knowledge spilled over into self-hosting services like object storage,
-								and a GitLab instance and elastic search for swiftly exploring a substantial volume of
-								log files. -->
+								<span class={'' + (more ? 'sm:hidden' : 'hidden')}
+									><b>kubernetes</b> and <b>devops</b> also found a place in my field of expertise.<br
+									/><br />May of
+									<b>2023</b> marked a significant milestone in my coding career as I launched my
+									first production application. This application was programmed in <b>Dart</b> using
+									the <b>Flutter</b>
+									framework, and its backend was supported by a fusion of <b>golang</b> and
+									<b>python</b>
+									arranged in a microservices architecture.<br /><br />I further ventured into
+									sophisticated concepts such as <b>gRPC</b> for enhanced communication between services.
+									This quest for knowledge spilled over into self-hosting services like object storage,
+									and a GitLab instance and elastic search for swiftly exploring a substantial volume
+									of log files.</span
+								>
 							</p>
+							<button
+								on:click={(target) => {
+									if (more) {
+										let el = document.querySelector('#about');
+										// if (!el) return;
+										el.scrollIntoView({
+											behavior: 'smooth'
+										});
+									}
+
+									more = !more;
+								}}
+								class="mx-auto md:hidden md:pb-0 flex bg-s-blue bg-opacity-10 text-s-blue px-12 text-md py-2 rounded-full font-semibold"
+								>{more ? 'Less' : 'More'}</button
+							>
 						</div>
 						<div class="pb-12">
 							<div class="pb-12 grid grid-cols-1 gap-y-12">

@@ -31,7 +31,7 @@
 	<div class="flex">
 		<button
 			on:click={clickEvent}
-			class={'bg-s-blue flex-grow-0 py-3 px-6 rounded-xl bg-opacity-30 text-s-blue text-xl font-semibold transition-all duration-300 hover:bg-opacity-40 hover:text-white'}
+			class={'bg-s-blue flex-grow-0 py-3 px-6 lg:py-5 lg:px-10 rounded-xl bg-opacity-30 text-s-blue text-xl lg:text-3xl font-semibold transition-all duration-300 hover:bg-opacity-40 hover:text-white'}
 		>
 			{#if clicked}
 				I have been clicked {$clicks} times!
