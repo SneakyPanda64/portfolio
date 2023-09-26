@@ -1,9 +1,56 @@
+kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
 metadata:
-  name: redis-enterprise-operator
-  namespace: {{.Values.namespace}}
+  name: redb-role
+  labels:
+    app: redis-enterprise
 rules:
+  - apiGroups:
+      - app.redislabs.com
+    resources:
+      [
+        "redisenterpriseclusters",
+        "redisenterpriseclusters/status",
+        "redisenterpriseclusters/finalizers",
+        "redisenterprisedatabases",
+        "redisenterprisedatabases/status",
+        "redisenterprisedatabases/finalizers",
+      ]
+    verbs:
+      [
+        "delete",
+        "deletecollection",
+        "get",
+        "list",
+        "patch",
+        "create",
+        "update",
+        "watch",
+      ]
   - apiGroups: [""]
-    resources: ["namespaces"]
-    verbs: ["list", "watch"]
+    resources: ["secrets"]
+    verbs:
+      [
+        "update",
+        "get",
+        "read",
+        "list",
+        "listallnamespaces",
+        "watch",
+        "watchlist",
+        "watchlistallnamespaces",
+        "create",
+        "patch",
+        "replace",
+        "delete",
+        "deletecollection",
+      ]
+  - apiGroups: [""]
+    resources: ["endpoints"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["events"]
+    verbs: ["create"]
+  - apiGroups: [""]
+    resources: ["services"]
+    verbs: ["get", "watch", "list", "update", "patch", "create", "delete"]
