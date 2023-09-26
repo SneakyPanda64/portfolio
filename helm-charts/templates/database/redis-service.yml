@@ -5,7 +5,7 @@ metadata:
   namespace: redis
 spec:
   selector:
-    app: redis-enterprise
+    app: redis-portfolio-0
   ports:
     - port: 8001
       targetPort: 8001
