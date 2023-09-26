@@ -5,4 +5,4 @@ metadata:
   namespace: redis
 spec:
   memorySize: 1GB
-  persistence: true
+  persistence: "aofEverySecond"
