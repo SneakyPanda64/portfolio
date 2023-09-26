@@ -13,6 +13,9 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-read-timeout: "900"
     nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
     nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/websocket-services: proxy-public
+    nginx.org/websocket-services: proxy-public
+    nginx.ingress.kubernetes.io/secure-backends: "true"
 spec:
   ingressClassName: nginx
   rules:

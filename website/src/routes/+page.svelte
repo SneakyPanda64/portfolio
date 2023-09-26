@@ -115,7 +115,7 @@
 		class="bg-gradient-to-r fixed from-s-purple to-s-blue w-32 h-32 bg-blend-multiply blur-3xl opacity-60 -z-50"
 	/>
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
-	<div id="main" class="relative" on:mousemove={followMouse} on:wheel={onScroll}>
+	<div id="main" class="relative" on:mousemove={followMouse}>
 		<Bubbles left="5%" top="5%" />
 		<Bubbles left="93%" top="85%" />
 		<div class="blur-3xl -top-5 -left-5 w-32 h-32 fixed bg-s-purple" />
