@@ -7,9 +7,8 @@ spec:
   selector:
     app: redis-enterprise
     redis.io/cluster: redis-portfolio
-    redis.io/role-master: "1"
     redis.io/role: node
   ports:
-    - port: 8443
+    - port: 8001
       protocol: TCP
   type: NodePort
