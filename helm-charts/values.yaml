@@ -1,4 +1,4 @@
 appName: portfolio
 namespace: portfolio
 endpoints:
-  ws: wss://api.alexheather.dev/
+  ws: wss://api.alexheather.dev
