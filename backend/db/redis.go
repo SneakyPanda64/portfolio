@@ -13,12 +13,13 @@ var (
 )
 
 func Connect() error {
-	opt, err := redis.ParseURL(os.Getenv("REDIS_URI"))
-	if err != nil {
-		return err
-	}
-	client := redis.NewClient(opt)
-	_, err = client.Conn().Set(context.Background(), "clicks", 5, 0).Result()
+	client := redis.NewClient(&redis.Options{
+		Addr:     os.Getenv("REDIS_URI"),
+		Username: os.Getenv("REDUS_USERNAME"),
+		Password: os.Getenv("REDUS_USERNAME"), // no password set
+		DB:       0,                           // use default DB
+	})
+	_, err := client.Set(context.Background(), "clicks", 5, 0).Result()
 	if err != nil {
 		return err
 	}
