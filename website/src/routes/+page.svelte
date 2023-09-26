@@ -39,7 +39,7 @@
 		}, 2500);
 
 		function connect() {
-			const ws = new WebSocket(`${PUBLIC_WS_ENDPOINT}/ws/`);
+			const ws = new WebSocket(`${PUBLIC_WS_ENDPOINT}/ws/actions?v=1`);
 			ws.addEventListener('open', () => {
 				console.log('connected');
 				$wsConnection = ws;
