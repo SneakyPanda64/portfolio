@@ -2,7 +2,7 @@ apiVersion: "app.redislabs.com/v1"
 kind: "RedisEnterpriseCluster"
 metadata:
   name: redis
-  namespace: {{.Values.namespace}}
+  namespace: redis
 spec:
   nodes: 1
   redisEnterpriseNodeResources:
