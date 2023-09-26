@@ -2,7 +2,6 @@ package db
 
 import (
 	"context"
-	"crypto/tls"
 	"os"
 
 	"github.com/redis/go-redis/v9"
@@ -17,9 +16,7 @@ func Connect() error {
 
 	client := redis.NewClient(&redis.Options{
 		Addr: os.Getenv("REDIS_URI"),
-		TLSConfig: &tls.Config{
-			InsecureSkipVerify: true,
-		},
+
 		// Username: os.Getenv("REDIS_USERNAME"),
 		// Password: os.Getenv("REDIS_PASSWORD"), // no password set
 		DB: 0, // use default DB
