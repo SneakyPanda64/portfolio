@@ -19,7 +19,7 @@ func Connect() {
 		return
 	}
 	client := redis.NewClient(opt)
-	_, err = client.Set(context.Background(), "foo", "bar", 1).Result()
+	_, err = client.Set(context.Background(), "clicks", 5, 0).Result()
 	if err != nil {
 		logrus.Error(err)
 		return
