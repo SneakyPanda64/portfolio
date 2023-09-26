@@ -17,7 +17,10 @@ func main() {
 	}
 	app := fiber.New()
 
-	db.Connect()
+	err = db.Connect()
+	if err != nil {
+		logrus.Fatal(err)
+	}
 
 	api.RegisterRoutes(app)
 
