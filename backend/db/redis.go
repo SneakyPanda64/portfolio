@@ -13,12 +13,13 @@ var (
 )
 
 func Connect() {
-	client := redis.NewClient(&redis.Options{
-		Addr:     os.Getenv("REDIS_URI"),
-		Password: "", // no password set
-		DB:       0,  // use default DB
-	})
-	_, err := client.Set(context.Background(), "foo", "bar", 1).Result()
+	opt, err := redis.ParseURL(os.Getenv("REDIS_URI"))
+	if err != nil {
+		logrus.Error(err)
+		return
+	}
+	client := redis.NewClient(opt)
+	_, err = client.Set(context.Background(), "foo", "bar", 1).Result()
 	if err != nil {
 		logrus.Error(err)
 		return
