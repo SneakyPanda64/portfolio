@@ -5,7 +5,8 @@ metadata:
   namespace: redis
 spec:
   selector:
-    app: redis-portfolio-0
+    app: redis-enterprise
+    statefulset.kubernetes.io/pod-name: redis-portfolio-0
   ports:
     - port: 8001
       targetPort: 8001
