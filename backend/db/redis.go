@@ -25,7 +25,7 @@ func Connect() error {
 		DB:       0,                           // use default DB
 	})
 	logrus.Infof("%s, %s, %s", os.Getenv("REDIS_URI"), os.Getenv("REDIS_USERNAME"), os.Getenv("REDIS_PASSWORD"))
-	err := client.Ping(context.Background()).Err()
+	err := client.Set(context.Background(), "test", 2, 0).Err()
 	if err != nil {
 		return err
 	}
