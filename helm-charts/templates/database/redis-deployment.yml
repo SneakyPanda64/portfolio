@@ -4,7 +4,7 @@ metadata:
   name: redis
 spec:
   nodes: 1
-redisEnterpriseNodeResources:
-  limits:
-    cpu: 500m
-    memory: 1Gi
+    redisEnterpriseNodeResources:
+    limits:
+        cpu: 500m
+        memory: 1Gi
