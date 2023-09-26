@@ -12,12 +12,11 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-buffering: "off"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "900"
     nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
-    # nginx.ingress.kubernetes.io/rewrite-target: /$2
     nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
   ingressClassName: nginx
   rules:
-    - host: {{.Values.ingress.baseurl}}
+    - host: alexheather.dev
       http:
         paths:
           - pathType: Prefix
@@ -27,9 +26,6 @@ spec:
                 name: website-service
                 port:
                   number: 3000
-  {{ if .Values.ingress.tls }}
   tls:
     - hosts:
-        - {{.Values.ingress.baseurl}}
-  {{ else }}
-  {{ end }}
+        - alexheather.dev
