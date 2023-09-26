@@ -19,6 +19,7 @@
 	import Projects from './projects.svelte';
 	import HyperionImage from '$lib/assets/hyperion.png';
 	import ErosImage from '$lib/assets/erosai.png';
+	import { PUBLIC_WS_ENDPOINT } from '$env/static/public';
 	let loading = undefined;
 	function followMouse(event) {
 		let elem = document.querySelector('#cursor');
@@ -38,7 +39,7 @@
 		}, 2500);
 
 		function connect() {
-			const ws = new WebSocket('ws://localhost:3000/ws/123?v=1.0');
+			const ws = new WebSocket(`${PUBLIC_WS_ENDPOINT}/ws/`);
 			ws.addEventListener('open', () => {
 				console.log('connected');
 				$wsConnection = ws;
@@ -69,7 +70,6 @@
 	});
 </script>
 
-
 <svelte:head>
 	<title>Alexander Heather</title>
 	<meta charset="utf-8" />
@@ -79,7 +79,6 @@
 		content="My personal portfolio for showing off my projects and experiences. And also demonstrating my web development skills"
 	/>
 </svelte:head>
-
 
 {#if loading === undefined || loading}
 	{#if loading}

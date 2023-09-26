@@ -21,5 +21,8 @@ spec:
               cpu: "100m"
           ports:
             - containerPort: 3000
+          env:
+            - name: PUBLIC_WS_ENDPOINT
+              value: {{.Values.endpoints.ws}}
       imagePullSecrets:
         - name: regcred
