@@ -19,7 +19,11 @@ func Connect() error {
 		Password: os.Getenv("REDUS_USERNAME"), // no password set
 		DB:       0,                           // use default DB
 	})
-	_, err := client.Ping(context.Background()).Result()
+	err := client.Ping(context.Background()).Err()
+	if err != nil {
+		return err
+	}
+	err = client.Set(context.Background(), "test", "test2", 0).Err()
 	if err != nil {
 		return err
 	}
