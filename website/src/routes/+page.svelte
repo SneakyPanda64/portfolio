@@ -33,10 +33,14 @@
 
 	onMount(async () => {
 		loading = true;
-		let loading_id = setInterval(() => {
+		if (env.PUBLIC_DISABLE_ANIMATION != 'true') {
+			let loading_id = setInterval(() => {
+				loading = false;
+				clearInterval(loading_id);
+			}, 2500);
+		} else {
 			loading = false;
-			clearInterval(loading_id);
-		}, 2500);
+		}
 
 		function connect() {
 			const ws = new WebSocket(`${env.PUBLIC_WS_ENDPOINT}/ws/actions?v=1`);
@@ -116,17 +120,17 @@
 	/>
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div id="main" class="relative" on:mousemove={followMouse}>
-		<Bubbles left="5%" top="5%" />
+		<Bubbles left="5%" top="5%" classExtra="hidden md:block" />
 		<Bubbles left="93%" top="85%" />
-		<div class="blur-3xl -top-5 -left-5 w-32 h-32 fixed bg-s-purple" />
+		<div class="blur-3xl -top-5 -left-5 w-16 h-16 md:w-32 md:h-32 fixed bg-s-purple" />
 
-		<div class="min-h-screen w-screen pt-24 px-32 text-s-light-gray">
-			<div class="grid grid-cols-2 gap-x-12">
-				<div class="fixed w-1/2">
+		<div class="min-h-screen w-screen md:pt-24 md:px-32 text-s-light-gray p-6 md:p-0">
+			<div class="md:grid md:grid-cols-2 gap-x-12">
+				<div class="md:fixed md:w-1/2 pb-8 md:pb-0">
 					<div class="">
 						<h1 class="text-5xl text-white font-bold">ALEXANDER HEATHER</h1>
 						<h2 class="text-3xl text-white font-medium text-opacity-90 pb-6 pt-2">WEB DEVELOPER</h2>
-						<h3 class="text-2xl font-medium w-2/3">
+						<h3 class="text-2xl font-medium md:w-2/3">
 							I excel in crafting high-performance websites that seamlessly integrate stunning
 							visual elements
 						</h3>
@@ -136,7 +140,7 @@
 						<LinkComponent linkName="projects" location="50%" />
 						<LinkComponent linkName="experiences" location="100%" />
 					</div> -->
-					<div class="pt-16">
+					<div class="pt-8 md:pt-16">
 						<Clickme />
 					</div>
 					<div class="flex gap-x-4 pt-12">
@@ -158,7 +162,7 @@
 						<Map />
 					{:else}
 						<div>
-							<p class="text-sm font-normal pb-6">
+							<p class="text-xl md:text-sm font-normal pb-6">
 								In <b>2020</b>, I embarked on a journey to become a web developer, beginning my
 								journey with creating sites utilising <b>pug.js</b>. This was an enlightening first
 								step and led to my exploration of different programming languages and frameworks
@@ -168,7 +172,7 @@
 								<b>2022</b> came around, I had grown more confident about programming skills and
 								expanded my knowledge base to include <b>golang</b> and <b>dart</b>. Additionally,
 								concepts such as
-								<b>kubernetes</b> and <b>devops</b> also found a place in my field of expertise.<br
+								<!-- <b>kubernetes</b> and <b>devops</b> also found a place in my field of expertise.<br
 								/><br />May of
 								<b>2023</b> marked a significant milestone in my coding career as I launched my
 								first production application. This application was programmed in <b>Dart</b> using
@@ -179,7 +183,7 @@
 								sophisticated concepts such as <b>gRPC</b> for enhanced communication between services.
 								This quest for knowledge spilled over into self-hosting services like object storage,
 								and a GitLab instance and elastic search for swiftly exploring a substantial volume of
-								log files.
+								log files. -->
 							</p>
 						</div>
 						<div class="pb-12">

@@ -16,7 +16,7 @@
 		class="transition-all group relative duration-300 ease-in-out from-s-blue rounded-xl shadow-2xl p-6 to-indigo-600 hover:shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)] hover:shadow-s-blue/60"
 	>
 		<a {href} target="_blank">
-			<div class="grid grid-flow-col">
+			<div class="md:grid md:grid-flow-col">
 				<div>
 					<div class="col-span-4 w-full">
 						<h1 class="text-sm font-semibold">{duration}</h1>
@@ -32,7 +32,7 @@
 					</div>
 				</div>
 				<div class="col-span-1 my-auto pt-8">
-					<div class="w-40 rounded-xl">
+					<div class="md:w-40 rounded-xl">
 						<img src={img} alt={title} class="rounded-lg shadow-xl" />
 					</div>
 					<!-- <div class="w-16 h-16 bg-red-500"> -->
