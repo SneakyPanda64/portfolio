@@ -20,9 +20,9 @@ func Connect() error {
 		TLSConfig: &tls.Config{
 			InsecureSkipVerify: true,
 		},
-		Username: os.Getenv("REDIS_USERNAME"),
-		Password: os.Getenv("REDIS_PASSWORD"), // no password set
-		DB:       0,                           // use default DB
+		// Username: os.Getenv("REDIS_USERNAME"),
+		// Password: os.Getenv("REDIS_PASSWORD"), // no password set
+		DB: 0, // use default DB
 	})
 	logrus.Infof("%s, %s, %s", os.Getenv("REDIS_URI"), os.Getenv("REDIS_USERNAME"), os.Getenv("REDIS_PASSWORD"))
 	res, err := client.Info(context.Background()).Result()
