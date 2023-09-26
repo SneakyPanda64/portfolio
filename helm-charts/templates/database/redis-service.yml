@@ -5,8 +5,10 @@ metadata:
   namespace: redis
 spec:
   selector:
-    app: redis-portfolio-ui
-    statefulset.kubernetes.io/pod-name: redis-portfolio-0
+    app: redis-enterprise
+    redis.io/cluster: redis-portfolio
+    redis.io/role-master: 1
+    redis.io/role: node
   ports:
     - port: 8443
       protocol: TCP
