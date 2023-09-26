@@ -21,6 +21,9 @@ spec:
               cpu: "100m"
           ports:
             - containerPort: 3000
+          env:
+            name: "REDIS_URI"
+            value: redis-portfolio.redis.svc.cluster.local
           imagePullPolicy: Always
       imagePullSecrets:
         - name: regcred-portfolio
