@@ -10,7 +10,7 @@ import (
 func Click() (int, error) {
 	const country = "GB"
 	const ip = "127-0-0-1"
-	clicks, err := db.Redis_client.Incr(context.Background(), "clicks").Result()
+	clicks, err := db.Redis_client.Set(context.Background(), "clicks", "2", 0).Result()
 	if err != nil {
 		return 0, err
 	}
@@ -25,5 +25,5 @@ func Click() (int, error) {
 		return 0, err
 	}
 	logrus.Print("HAHSED")
-	return int(clicks), nil
+	return int(2), nil
 }
