@@ -9,7 +9,7 @@ import (
 func Click() (int, error) {
 	const country = "GB"
 	const ip = "127-0-0-1"
-	err := db.Redis_client.Incr(context.Background(), "clicks").Err()
+	clicks, err := db.Redis_client.Incr(context.Background(), "clicks").Result()
 	if err != nil {
 		return 0, err
 	}
@@ -17,5 +17,5 @@ func Click() (int, error) {
 	if err != nil {
 		return 0, err
 	}
-	return int(2), nil
+	return int(clicks), nil
 }
