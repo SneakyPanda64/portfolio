@@ -20,7 +20,6 @@
 	import HyperionImage from '$lib/assets/hyperion.png';
 	import ErosImage from '$lib/assets/erosai.png';
 	let loading = undefined;
-	import { PUBLIC_DISABLE_LOADING_ANIMATION } from '$env/static/public';
 	function followMouse(event) {
 		let elem = document.querySelector('#cursor');
 		if (elem !== null) {
@@ -32,15 +31,11 @@
 	}
 
 	onMount(async () => {
-		if (PUBLIC_DISABLE_LOADING_ANIMATION !== 'true') {
-			loading = true;
-			let loading_id = setInterval(() => {
-				loading = false;
-				clearInterval(loading_id);
-			}, 2500);
-		} else {
+		loading = true;
+		let loading_id = setInterval(() => {
 			loading = false;
-		}
+			clearInterval(loading_id);
+		}, 2500);
 
 		function connect() {
 			const ws = new WebSocket('ws://localhost:3000/ws/123?v=1.0');
