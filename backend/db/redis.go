@@ -18,7 +18,7 @@ func Connect() error {
 		return err
 	}
 	client := redis.NewClient(opt)
-	_, err = client.Set(context.Background(), "clicks", 5, 0).Result()
+	_, err = client.Conn().Set(context.Background(), "clicks", 5, 0).Result()
 	if err != nil {
 		return err
 	}
