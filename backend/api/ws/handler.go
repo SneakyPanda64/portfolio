@@ -36,6 +36,7 @@ func Handler(c *websocket.Conn) error {
 			clicks, err := actions.Click()
 			if err != nil {
 				logrus.Error(err)
+				break
 			}
 			body, err := json.Marshal(models.SendData{
 				Type:  "clicks",
@@ -43,6 +44,7 @@ func Handler(c *websocket.Conn) error {
 			})
 			if err != nil {
 				logrus.Error(err)
+				break
 			}
 			broadcast <- body
 
