@@ -19,7 +19,7 @@
 	import Projects from './projects.svelte';
 	import HyperionImage from '$lib/assets/hyperion.png';
 	import ErosImage from '$lib/assets/erosai.png';
-	import { PUBLIC_WS_ENDPOINT } from '$env/static/public';
+	import { env } from '$env/dynamic/public';
 	let loading = undefined;
 	function followMouse(event) {
 		let elem = document.querySelector('#cursor');
@@ -39,7 +39,7 @@
 		}, 2500);
 
 		function connect() {
-			const ws = new WebSocket(`${PUBLIC_WS_ENDPOINT}/ws/actions?v=1`);
+			const ws = new WebSocket(`${env.PUBLIC_WS_ENDPOINT}/ws/actions?v=1`);
 			ws.addEventListener('open', () => {
 				console.log('connected');
 				$wsConnection = ws;
