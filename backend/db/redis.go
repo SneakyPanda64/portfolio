@@ -14,7 +14,7 @@ var (
 
 func Connect() error {
 	client := redis.NewClient(&redis.Options{
-		Addr: "na",
+		Addr: "na:8443",
 		// Username: os.Getenv("REDIS_USERNAME"),
 		// Password: os.Getenv("REDIS_PASSWORD"), // no password set
 		DB: 0, // use default DB
