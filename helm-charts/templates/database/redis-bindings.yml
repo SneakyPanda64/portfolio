@@ -2,7 +2,7 @@ kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: redis-enterprise-operator
-  namespace: redis
+  namespace: {{.Values.namespace}}
 subjects:
   - kind: ServiceAccount
     name: redis-enterprise-operator
