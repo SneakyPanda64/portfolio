@@ -9,7 +9,7 @@ build_website:
     entrypoint: [""]
   script:
     - /kaniko/executor
-      --context "${CI_PROJECT_DIR}"
+      --context "${CI_PROJECT_DIR}/website"
       --dockerfile "${CI_PROJECT_DIR}/website/Dockerfile"
       --destination "${CI_REGISTRY_IMAGE}:website"
       --cache=true
@@ -21,7 +21,7 @@ build_backend:
     entrypoint: [""]
   script:
     - /kaniko/executor
-      --context "${CI_PROJECT_DIR}"
+      --context "${CI_PROJECT_DIR}/backend"
       --dockerfile "${CI_PROJECT_DIR}/backend/Dockerfile"
       --destination "${CI_REGISTRY_IMAGE}:backend"
       --cache=true
