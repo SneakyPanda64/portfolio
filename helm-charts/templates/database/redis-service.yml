@@ -8,6 +8,6 @@ spec:
     app: redis-portfolio-ui
     statefulset.kubernetes.io/pod-name: redis-portfolio-0
   ports:
-    - port: 27017
+    - port: 8443
       protocol: TCP
   type: NodePort
