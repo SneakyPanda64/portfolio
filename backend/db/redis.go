@@ -15,23 +15,16 @@ var (
 func Connect() error {
 
 	client := redis.NewClient(&redis.Options{
-		Addr: os.Getenv("REDIS_URI"),
-		// Password: "", //
+		Addr:     os.Getenv("REDIS_URI"),
 		Username: os.Getenv("REDIS_USERNAME"),
 		Password: os.Getenv("REDIS_PASSWORD"), // no password set
 		DB:       0,                           // use default DB
 	})
 	logrus.Infof("%s, %s, %s", os.Getenv("REDIS_URI"), os.Getenv("REDIS_USERNAME"), os.Getenv("REDIS_PASSWORD"))
-	res, err := client.Ping(context.Background()).Result()
+	err := client.Ping(context.Background()).Err()
 	if err != nil {
 		return err
 	}
-	logrus.Info(res)
-	res2, err := client.Info(context.Background()).Result()
-	if err != nil {
-		return err
-	}
-	logrus.Info(res2)
 	logrus.Info("Connected to redis db")
 	Redis_client = client
 	return nil

@@ -14,7 +14,6 @@ func GetClicks() (int, error) {
 		logrus.Error(err)
 		return 0, err
 	}
-	logrus.Print("GOT CLICKS")
 	i, err := strconv.Atoi(clicks)
 	if err != nil {
 		return 0, err
