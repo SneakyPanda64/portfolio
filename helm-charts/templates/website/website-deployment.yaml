@@ -25,4 +25,4 @@ spec:
             - name: PUBLIC_WS_ENDPOINT
               value: {{.Values.endpoints.ws}}
       imagePullSecrets:
-        - name: regcred
+        - name: regcred-portfolio
