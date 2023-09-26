@@ -4,7 +4,7 @@ metadata:
   name: redis
   namespace: {{.Values.namespace}}
 spec:
-  nodes: 3
+  nodes: 1
   redisEnterpriseNodeResources:
     limits:
       cpu: 500m
