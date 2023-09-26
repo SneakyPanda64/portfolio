@@ -3,6 +3,7 @@ package actions
 import (
 	"context"
 
+	"github.com/sirupsen/logrus"
 	"github.com/sneakypanda64/portfolio/db"
 )
 
@@ -13,6 +14,7 @@ func Click() (int, error) {
 	if err != nil {
 		return 0, err
 	}
+	logrus.Print("CLICKED")
 	// var newUserMap map[string]models.User
 	// newUser := &models.User{
 	// 	Country:     country,
@@ -22,5 +24,6 @@ func Click() (int, error) {
 	if err != nil {
 		return 0, err
 	}
+	logrus.Print("HAHSED")
 	return int(clicks), nil
 }
