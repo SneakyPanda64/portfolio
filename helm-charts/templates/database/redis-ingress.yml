@@ -25,3 +25,6 @@ spec:
                 name: portfolio
                 port:
                   name: redis
+  tls:
+    - hosts:
+        - atlasservers.net
