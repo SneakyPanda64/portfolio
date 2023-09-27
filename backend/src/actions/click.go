@@ -6,9 +6,9 @@ import (
 	"github.com/sneakypanda64/portfolio/db"
 )
 
-func Click() (int, error) {
-	const country = "GB"
-	const ip = "127-0-0-1"
+func Click(country, ip string) (int, error) {
+	// const country = "GB"
+	// const ip = "127-0-0-1"
 	clicks, err := db.Redis_client.Incr(context.Background(), "clicks").Result()
 	if err != nil {
 		return 0, err

@@ -9,7 +9,6 @@ func BroadcastMessages() {
 
 		// Send the message to all connected clients
 		for client := range clients {
-			logrus.Info("Sending broadcast to client")
 			err := client.Conn.WriteMessage(1, message)
 			if err != nil {
 				logrus.Error("Error writing message:", err)

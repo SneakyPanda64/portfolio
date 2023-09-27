@@ -45,6 +45,7 @@
 
 		function connect() {
 			const ws = new WebSocket(`${env.PUBLIC_WS_ENDPOINT}/ws/actions?v=1`);
+
 			ws.addEventListener('open', () => {
 				console.log('connected');
 				$wsConnection = ws;
@@ -66,6 +67,7 @@
 			});
 			ws.addEventListener('close', () => {
 				console.log('closed connection');
+
 				setTimeout(function () {
 					connect();
 				}, 1000);

@@ -33,7 +33,8 @@ func Handler(c *websocket.Conn) error {
 		log.Printf("recv: %s", msg)
 		json.Unmarshal(msg, &m)
 		if m.Action == "click" {
-			clicks, err := actions.Click()
+			logrus.Info(c.Headers("cf-ipcountry"), c.Headers("cf-connecting-ip"))
+			clicks, err := actions.Click("GB", "127-0-0-1")
 			if err != nil {
 				logrus.Error(err)
 				break
