@@ -57,7 +57,7 @@
 					>
 					<h1 class="pl-2">Connecting</h1>
 				</div>
-			{:else if clicked && $clicks != 0}
+			{:else if clicked && $clicks['clicks'] != 0}
 				{#if $clicks['disabled']}
 					Rate limited
 				{:else}
