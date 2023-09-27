@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: external-redis-svc
+  namespace: {{.Values.namespace}}
+spec:
+  selector:
+    app: redis-enterprise
+    statefulset.kubernetes.io/pod-name: redis-portfolio-0
+  ports:
+    - port: 19118
+      protocol: TCP
+  type: NodePort
