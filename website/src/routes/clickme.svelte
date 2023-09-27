@@ -11,7 +11,7 @@
 		// if (clicked) return;
 		// clicks += 1;
 		clicked = true;
-		if ($wsConnection !== undefined) {
+		if ($wsConnection !== undefined && !$clicks['disabled']) {
 			// @ts-ignore
 			$wsConnection.send(
 				JSON.stringify({
@@ -30,7 +30,6 @@
 <div class="">
 	<div class="flex">
 		<button
-			disabled={$clicks['disabled']}
 			on:click={clickEvent}
 			class={'flex-grow-0 py-3 px-6 lg:py-5 lg:px-10 rounded-xl bg-opacity-30  text-xl lg:text-3xl font-semibold transition-all duration-300  ' +
 				($clicks['disabled']
