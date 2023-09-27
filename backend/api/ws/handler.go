@@ -3,7 +3,6 @@ package ws
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"strings"
 
 	"github.com/gofiber/contrib/websocket"
@@ -31,10 +30,9 @@ func Handler(c *websocket.Conn) error {
 			break
 		}
 		var m *models.Response
-		log.Printf("recv: %s", msg)
 		json.Unmarshal(msg, &m)
 		if m.Action == "click" {
-			logrus.Info(c.Locals("ip"), c.Locals("country"))
+			// logrus.Info(c.Locals("ip"), c.Locals("country"))
 			ip := strings.ReplaceAll(fmt.Sprintf("%s", c.Locals("ip")), " ", "-")
 			clicks, err := actions.Click(fmt.Sprintf("%s", c.Locals("country")), ip)
 			if err != nil {
@@ -73,7 +71,7 @@ func Handler(c *websocket.Conn) error {
 
 			// c.WriteMessage(1, )
 		}
-		logrus.Infof("Recieved: action: %s, value: %s", m.Action, m.Value)
+		logrus.Infof("Action: %s, Value: %s", m.Action, m.Value)
 	}
 	clients[c] = false
 	return nil
