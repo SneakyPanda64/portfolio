@@ -16,9 +16,9 @@ end
 return current
 `
 
-func RateLimit(ip string, limit int64) (bool, error) {
-	logrus.Info("checking rate limit")
-	v, err := db.Redis_client.Eval(context.Background(), script, []string{ip}).Result()
+func RateLimit(key string, limit int64) (bool, error) {
+	logrus.Infof("checking rate limit: %s, %d", key, limit)
+	v, err := db.Redis_client.Eval(context.Background(), script, []string{key}).Result()
 	if err != nil {
 		return false, err
 	}
