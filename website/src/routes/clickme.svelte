@@ -10,7 +10,6 @@
 	const clickEvent = () => {
 		// if (clicked) return;
 		// clicks += 1;
-		clicked = true;
 		if ($wsConnection !== undefined && $clicks['disabled'] == false) {
 			// @ts-ignore
 			$wsConnection.send(
@@ -57,7 +56,8 @@
 						/></svg
 					>
 					<h1 class="pl-2">Connecting</h1>
-				</div>{:else if clicked}
+				</div>
+			{:else if clicked && $clicks != 0}
 				{#if $clicks['disabled']}
 					Rate limited
 				{:else}
