@@ -21,6 +21,10 @@ import (
 )
 
 func main() {
+	formatter := new(logrus.TextFormatter)
+	formatter.TimestampFormat = "2006-01-02 15:04:05"
+	logrus.SetFormatter(formatter)
+
 	err := godotenv.Load()
 	if err != nil {
 		logrus.Error(err)
@@ -54,12 +58,13 @@ func main() {
 	}
 	app.Use(logger.New(logger.Config{}))
 	app.Use(limiter.New(limiter.Config{
-		Max:        10,
+		Max:        3000,
 		Expiration: 60 * time.Second,
 		KeyGenerator: func(c *fiber.Ctx) string {
 			return c.Get("cf-connecting-ip")
 		},
 		LimitReached: func(c *fiber.Ctx) error {
+			logrus.Info("Websocket timeout!")
 			return c.SendStatus(http.StatusTooManyRequests)
 		},
 		Storage: store,

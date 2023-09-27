@@ -2,6 +2,7 @@ package ws
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -10,6 +11,7 @@ import (
 	"github.com/sneakypanda64/portfolio/models"
 	"github.com/sneakypanda64/portfolio/src/actions"
 	"github.com/sneakypanda64/portfolio/src/heatmap"
+	"github.com/sneakypanda64/portfolio/src/limiting"
 )
 
 var (
@@ -24,6 +26,11 @@ func Handler(c *websocket.Conn) error {
 		err error
 	)
 	clients[c] = true
+	logrus.Info("handled!")
+	hm_body, err := heatmap.GetStats()
+	if err == nil {
+		c.WriteMessage(1, hm_body)
+	}
 	for {
 		if _, msg, err = c.ReadMessage(); err != nil {
 			logrus.Error(err)
@@ -31,9 +38,28 @@ func Handler(c *websocket.Conn) error {
 		}
 		var m *models.Response
 		json.Unmarshal(msg, &m)
+		ip := strings.ReplaceAll(fmt.Sprintf("%s", c.Locals("ip")), " ", "-")
+		ratelimited, err := limiting.RateLimit(ip, 5)
+		if err != nil {
+			logrus.Error(err)
+			continue
+		}
+		if ratelimited {
+			logrus.Error(errors.New("rate limited"))
+			body, err := json.Marshal(models.SendData{
+				Type:  "error",
+				Value: "rate limited",
+			})
+			if err != nil {
+				logrus.Error(err)
+			}
+			c.WriteMessage(1, body)
+			continue
+		}
 		if m.Action == "click" {
+
 			// logrus.Info(c.Locals("ip"), c.Locals("country"))
-			ip := strings.ReplaceAll(fmt.Sprintf("%s", c.Locals("ip")), " ", "-")
+
 			clicks, err := actions.Click(fmt.Sprintf("%s", c.Locals("country")), ip)
 			if err != nil {
 				logrus.Error(err)
@@ -51,25 +77,12 @@ func Handler(c *websocket.Conn) error {
 
 		}
 		if m.Action == "stats" {
-			hm, err := heatmap.GetHeatmap()
+			body, err := heatmap.GetStats()
 			if err != nil {
 				logrus.Error(err)
+				break
 			}
-			body, err := json.Marshal(hm)
-			if err != nil {
-				logrus.Error(err)
-			}
-			resp := &models.SendData{
-				Type:  "stats",
-				Value: string(body),
-			}
-			fbody, err := json.Marshal(resp)
-			if err != nil {
-				logrus.Error(err)
-			}
-			c.WriteMessage(1, fbody)
-
-			// c.WriteMessage(1, )
+			c.WriteMessage(1, body)
 		}
 		logrus.Infof("Action: %s, Value: %s", m.Action, m.Value)
 	}

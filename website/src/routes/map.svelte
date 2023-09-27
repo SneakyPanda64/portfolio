@@ -33,12 +33,12 @@
 		);
 		country_features = topojson.feature(globe, globe.objects.countries).features;
 		loading_map = true;
-		$wsConnection.send(
-			JSON.stringify({
-				action: 'stats',
-				value: ''
-			})
-		);
+		// $wsConnection.send(
+		// 	JSON.stringify({
+		// 		action: 'stats',
+		// 		value: ''
+		// 	})
+		// );
 	});
 </script>
 

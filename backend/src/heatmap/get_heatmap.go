@@ -2,13 +2,35 @@ package heatmap
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"math"
 	"strconv"
 
 	"github.com/biter777/countries"
 	"github.com/sneakypanda64/portfolio/db"
+	"github.com/sneakypanda64/portfolio/models"
 )
+
+func GetStats() ([]byte, error) {
+	hm, err := GetHeatmap()
+	if err != nil {
+		return nil, err
+	}
+	body, err := json.Marshal(hm)
+	if err != nil {
+		return nil, err
+	}
+	resp := &models.SendData{
+		Type:  "stats",
+		Value: string(body),
+	}
+	fbody, err := json.Marshal(resp)
+	if err != nil {
+		return nil, err
+	}
+	return fbody, nil
+}
 
 func GetHeatmap() (map[int64]string, error) {
 	result, err := db.Redis_client.HGetAll(context.Background(), "countries").Result()

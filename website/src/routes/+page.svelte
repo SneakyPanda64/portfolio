@@ -22,6 +22,7 @@
 	import { env } from '$env/dynamic/public';
 	let loading = undefined;
 	let more = false;
+
 	function followMouse(event) {
 		let elem = document.querySelector('#cursor');
 		if (elem !== null) {
@@ -44,10 +45,11 @@
 		}
 
 		function connect() {
+			console.log('connecting...');
 			const ws = new WebSocket(`${env.PUBLIC_WS_ENDPOINT}/ws/actions?v=1`);
-
 			ws.addEventListener('open', () => {
 				console.log('connected');
+				$clicks['disabled'] = false;
 				$wsConnection = ws;
 			});
 			ws.addEventListener('message', (message) => {
@@ -56,10 +58,14 @@
 					const data = JSON.parse(message.data);
 					console.log('recieved', data);
 					if (data.type === 'clicks') {
-						$clicks = data.value;
+						$clicks['clicks'] = data.value;
 					} else if (data.type === 'stats') {
 						$heatmap = JSON.parse(data.value);
-						console.log($heatmap);
+					} else if (data.type === 'error') {
+						$clicks['disabled'] = true;
+						setTimeout(() => {
+							$clicks['disabled'] = false;
+						}, 5000);
 					}
 				} else {
 					console.log('recieved', message);
@@ -67,7 +73,7 @@
 			});
 			ws.addEventListener('close', () => {
 				console.log('closed connection');
-
+				$clicks['disabled'] = true;
 				setTimeout(function () {
 					connect();
 				}, 1000);
