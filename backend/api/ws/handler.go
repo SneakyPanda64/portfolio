@@ -39,7 +39,7 @@ func Handler(c *websocket.Conn) error {
 		var m *models.Response
 		json.Unmarshal(msg, &m)
 		ip := strings.ReplaceAll(fmt.Sprintf("%s", c.Locals("ip")), " ", "-")
-		ratelimited, err := limiting.RateLimit(ip, 60)
+		ratelimited, err := limiting.RateLimit(fmt.Sprintf("ratelimit:%s", ip), 60)
 		if err != nil {
 			logrus.Error(err)
 			continue

@@ -11,7 +11,7 @@
 		// if (clicked) return;
 		// clicks += 1;
 		clicked = true;
-		if ($wsConnection !== undefined && !$clicks['disabled']) {
+		if ($wsConnection !== undefined && $clicks['disabled'] != false) {
 			// @ts-ignore
 			$wsConnection.send(
 				JSON.stringify({
