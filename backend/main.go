@@ -17,6 +17,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/sneakypanda64/portfolio/api"
 	"github.com/sneakypanda64/portfolio/db"
+	"github.com/sneakypanda64/portfolio/middleware/logger"
 )
 
 func main() {
@@ -51,22 +52,14 @@ func main() {
 	if err != nil {
 		logrus.Fatal(err)
 	}
+	app.Use(logger.New(logger.Config{}))
 	app.Use(limiter.New(limiter.Config{
-		// Next: func(c *fiber.Ctx) bool {
-		// 	return c.IP() == "127.0.0.1"
-		// },
-		Next: func(c *fiber.Ctx) bool {
-			logrus.Print("Attempted to connect")
-			c.SendStatus(200)
-			return false
-		},
 		Max:        10,
 		Expiration: 60 * time.Second,
 		KeyGenerator: func(c *fiber.Ctx) string {
-			return "test"
+			return c.Get("cf-connecting-ip")
 		},
 		LimitReached: func(c *fiber.Ctx) error {
-			logrus.Info("max")
 			return c.SendStatus(http.StatusTooManyRequests)
 		},
 		Storage: store,

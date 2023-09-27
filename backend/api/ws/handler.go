@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"strings"
 
 	"github.com/gofiber/contrib/websocket"
 	"github.com/sirupsen/logrus"
@@ -34,7 +35,8 @@ func Handler(c *websocket.Conn) error {
 		json.Unmarshal(msg, &m)
 		if m.Action == "click" {
 			logrus.Info(c.Locals("ip"), c.Locals("country"))
-			clicks, err := actions.Click("GB", "127-0-0-1")
+			ip := strings.ReplaceAll(fmt.Sprintf("%s", c.Locals("ip")), " ", "-")
+			clicks, err := actions.Click(fmt.Sprintf("%s", c.Locals("country")), ip)
 			if err != nil {
 				logrus.Error(err)
 				break
