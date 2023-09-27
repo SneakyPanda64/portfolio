@@ -19,6 +19,7 @@
 				})
 			);
 		}
+		clicked = true;
 	};
 	const showStatsHandler = () => {
 		console.log('changing show stats var');
