@@ -125,9 +125,9 @@
 		<Bubbles left="93%" top="85%" />
 		<div class="blur-3xl -top-5 -left-5 w-16 h-16 md:w-32 md:h-32 fixed bg-s-purple" />
 
-		<div class="min-h-screen w-screen md:pt-24 md:px-32 text-s-light-gray p-6 md:p-0">
+		<div class="min-h-screen w-screen md:pt-20 md:px-32 text-s-light-gray p-6 md:p-0">
 			<div class="md:grid md:grid-cols-2 gap-x-12">
-				<div class="md:fixed md:w-1/2 pb-8 md:pb-0">
+				<div class="md:fixed md:w-1/2 pb-12 md:pb-0">
 					<div class="">
 						<h1 class="text-5xl lg:text-7xl text-white font-bold">ALEXANDER HEATHER</h1>
 						<h2 class="text-3xl lg:text-5xl text-white font-medium text-opacity-90 pb-6 pt-2">
@@ -166,7 +166,7 @@
 					{:else}
 						<div class="pb-6 md:pb-0">
 							<h1 class="opacity-0" id="about">About</h1>
-							<p class="text-xl md:text-sm lg:text-lg font-normal pb-6">
+							<p class="text-xl md:text-sm lg:text-xl font-normal pb-6">
 								In <b>2020</b>, I embarked on a journey to become a web developer, beginning my
 								journey with creating sites utilising <b>pug.js</b>. This was an enlightening first
 								step and led to my exploration of different programming languages and frameworks
@@ -176,7 +176,7 @@
 								<b>2022</b> came around, I had grown more confident about programming skills and
 								expanded my knowledge base to include <b>golang</b> and <b>dart</b>. Additionally,
 								concepts such as
-								<span class={'' + (more ? 'sm:hidden' : 'hidden')}
+								<span class={'md:block ' + (!more ? 'hidden' : 'block')}
 									><b>kubernetes</b> and <b>devops</b> also found a place in my field of expertise.<br
 									/><br />May of
 									<b>2023</b> marked a significant milestone in my coding career as I launched my
@@ -279,11 +279,11 @@
 										'DevOps'
 									]}
 								/> -->
-								<Experience
+								<Projects
 									duration="JULY 2023"
-									role="Fontend Developer"
-									company={{ title: 'Talon Outdoor', website: 'https://talonooh.com/en/' }}
-									level="Internship"
+									title="Fontend Developer • Talon Outdoor"
+									subtitle="Internship"
+									href="https://talonooh.com/"
 									about="I had the opportunity to work in a professional setting alongside other web developers, where my main focus was on developing a NextJS web application. During my time at Talon, I was able to contribute several new features and resolve numerous bugs. Working alongside a highly skilled team of individuals, I had the privilege of learning from their expertise and gaining valuable insights."
 									skills={['Next.js', 'Jest', 'Sass', 'Javascript', 'Typescript']}
 								/>

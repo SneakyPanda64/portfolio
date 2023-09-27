@@ -9,6 +9,7 @@
 	export let connections = [];
 	export let href = '';
 	export let skills = [];
+	export let subtitle = '';
 </script>
 
 <card>
@@ -19,22 +20,27 @@
 			<div class="md:grid md:grid-flow-col">
 				<div>
 					<div class="col-span-4 w-full">
-						<h1 class="text-sm font-semibold">{duration}</h1>
+						<h1 class="text-sm lg:text-lg font-semibold">{duration}</h1>
 						<div class="flex">
-							<h1 class="font-bold text-white text-2xl pb-2">{title}</h1>
+							<h1 class="font-bold text-white text-2xl lg:text-3xl pb-2">{title}</h1>
 							<div
-								class="w-4 mt-2 ml-4 group-hover:-translate-y-2 group-hover:translate-x-2 duration-300 ease-in-out group-hover:text-white"
+								class="w-4 lg:w-5 mt-2 ml-4 group-hover:-translate-y-2 group-hover:translate-x-2 duration-300 ease-in-out group-hover:text-white"
 							>
 								<FaLocationArrow />
 							</div>
 						</div>
-						<p class="text-md pr-4">{about}</p>
+						{#if subtitle != ''}
+							<h2 class="text-sm lg:text-2xl pb-2 font-semibold">{subtitle}</h2>
+						{/if}
+						<p class="text-md md:text-lg lg:text-xl pr-4">{about}</p>
 					</div>
 				</div>
 				<div class="col-span-1 my-auto pt-8">
-					<div class="md:w-40 rounded-xl">
-						<img src={img} alt={title} class="rounded-lg shadow-xl" />
-					</div>
+					{#if img != ''}
+						<div class="md:w-40 lg:w-64 rounded-xl">
+							<img src={img} alt={title} class="rounded-lg shadow-xl" />
+						</div>
+					{/if}
 					<!-- <div class="w-16 h-16 bg-red-500"> -->
 					<!-- <FaGithub /> -->
 					<ul class="pt-6 flex justify-between">
