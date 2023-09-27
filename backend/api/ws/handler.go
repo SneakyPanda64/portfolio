@@ -26,7 +26,6 @@ func Handler(c *websocket.Conn) error {
 		err error
 	)
 	clients[c] = true
-	logrus.Info("handled!")
 	hm_body, err := heatmap.GetStats()
 	if err == nil {
 		c.WriteMessage(1, hm_body)
@@ -57,9 +56,6 @@ func Handler(c *websocket.Conn) error {
 			continue
 		}
 		if m.Action == "click" {
-
-			// logrus.Info(c.Locals("ip"), c.Locals("country"))
-
 			clicks, err := actions.Click(fmt.Sprintf("%s", c.Locals("country")), ip)
 			if err != nil {
 				logrus.Error(err)
@@ -84,7 +80,7 @@ func Handler(c *websocket.Conn) error {
 			}
 			c.WriteMessage(1, body)
 		}
-		logrus.Infof("Action: %s, Value: %s", m.Action, m.Value)
+		logrus.Infof("Action: %s, Value: %s, IP: %s, Country: %s", m.Action, m.Value, ip, c.Locals("country"))
 	}
 	clients[c] = false
 	return nil

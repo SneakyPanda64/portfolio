@@ -38,7 +38,6 @@ func main() {
 		logrus.Fatal(err)
 	}
 
-	// Or extend your config for customization
 	port, err := strconv.ParseInt(strings.Split(os.Getenv("REDIS_URI"), ":")[1], 10, 64)
 	if err != nil {
 		logrus.Fatal(err)
@@ -58,7 +57,7 @@ func main() {
 	}
 	app.Use(logger.New(logger.Config{}))
 	app.Use(limiter.New(limiter.Config{
-		Max:        3000,
+		Max:        60,
 		Expiration: 60 * time.Second,
 		KeyGenerator: func(c *fiber.Ctx) string {
 			return c.Get("cf-connecting-ip")

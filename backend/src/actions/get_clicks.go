@@ -19,5 +19,4 @@ func GetClicks() (int, error) {
 		return 0, err
 	}
 	return i, nil
-	// return i, nil
 }
