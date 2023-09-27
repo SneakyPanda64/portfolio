@@ -22,7 +22,6 @@
 		clicked = true;
 	};
 	const showStatsHandler = () => {
-		console.log('changing show stats var');
 		$showStats = !$showStats;
 	};
 </script>
@@ -71,7 +70,7 @@
 		{#if clicked}
 			<button
 				on:click={showStatsHandler}
-				class="bg-s-blue bg-opacity-10 text-s-blue rounded-xl ml-2 px-4 font-semibold hover:bg-opacity-30 hover:text-white"
+				class="bg-s-blue bg-opacity-10 text-s-blue rounded-xl ml-2 px-4 font-semibold hover:bg-opacity-30 hover:text-white text-xl lg:text-2xl"
 				>{$showStats ? 'Hide' : 'Show'} statistics</button
 			>
 		{/if}
