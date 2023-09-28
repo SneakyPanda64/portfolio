@@ -29,7 +29,7 @@ build_backend:
 deploy:
   stage: deploy
   image:
-    name: bitnami/kubectl:latest
+    name: public.ecr.aws/bitnami/kubectl:1.25.14-debian-11-r14
     entrypoint: [""]
   script:
     - kubectl config get-contexts
