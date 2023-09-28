@@ -26,7 +26,7 @@
 	};
 </script>
 
-<div class="">
+<div class="w-2/3">
 	<div class="flex">
 		<button
 			on:click={clickEvent}
