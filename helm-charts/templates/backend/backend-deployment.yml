@@ -23,7 +23,7 @@ spec:
             - containerPort: 3000
           env:
             - name: "REDIS_URI"
-              value: "portfolio-headless.redis.svc.cluster.local:19118"
+              value: "portfolio-headless.redis.svc.cluster.local:19876"
             - name: "REDIS_USERNAME"
               value: "demo@redis.com"
             - name: "REDIS_PASSWORD"
